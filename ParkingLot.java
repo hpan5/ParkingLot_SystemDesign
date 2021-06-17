@@ -1,25 +1,42 @@
-public class ParkingLot {
-    priavte Level[] levels;
-    boolean park(Vehicle v);
-    boolean leave(Vehicle v);
+//top level: parking lot
 
-    /** given a veihicle, tell me whether I can park it?*/
+public class ParkingLot {
+    private final Level[] levels;
+
+    public ParkingLot(int numLevels, int numSpotsPerLevel) {
+        levels = new Level[numLevels];
+        for (int i = 0; i < numLevels; i++) {
+            levels[i] = new Level(numSpotsPerLevel);
+        }
+    }
+
     public boolean hasSpot(Vehicle v) {
-        //TODO: check each level, for each level, call Level #hasSpot(Vehicle)
+        for (Level level : levels) {
+            if (level.hasSpot(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean park(Vehicle v) {
+        for (Level level : levels) {
+            if (level.park(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+    * Iterate through levels, return
+    * */
+    public boolean leave(Vehicle v) {
+        for (Level level : levels) {
+            if (level.leave(v)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
-
-class Level {
-    //tracking Parking Spots
-    //boolean hasSpot(Vehicle)
-}
-
-class ParkingSpot{
-   //boolean fit(Vehicle): check size and availability
-}
-
-public abstract class Vehicle {
-    //data fields ...
-    //getSize() method
-}
-
